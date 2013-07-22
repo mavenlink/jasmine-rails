@@ -26,7 +26,9 @@ namespace :spec do
     runner_path = Rails.root.join('spec/tmp/runner.html')
     File.open(runner_path, 'w') {|f| f << html.gsub('/assets', './assets')}
 
-    run_cmd %{phantomjs "#{File.join(File.dirname(__FILE__), 'runner.js')}" "file://#{runner_path.to_s}?spec=#{spec_filter}"}
+    config_path = Rails.root.join("spec/javascripts/support/phantom.json")
+
+    run_cmd %{phantomjs --config="#{config_path}" "#{File.join(File.dirname(__FILE__), 'runner.js')}" "file://#{runner_path.to_s}?spec=#{spec_filter}"}
     Rails.application.config.assets.debug = original_debug_setting
   end
 
