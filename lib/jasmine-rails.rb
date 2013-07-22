@@ -42,6 +42,23 @@ module JasmineRails
       each_dir src_dir.to_s, &block
     end
 
+    def style_dir
+      path = jasmine_config['style_dir'] || 'app/assets/stylesheets'
+      Rails.root.join(path)
+    end
+
+    # returns list of all stylesheets to be included into the jasmine testsuite
+    def style_files
+      files = []
+      files += filter_files style_dir, jasmine_config['style_files']
+      files
+    end
+
+    # iterate over all directories used as part of the testsuite (including subdirectories)
+    def each_style_dir(&block)
+      each_dir style_dir.to_s, &block
+    end
+
     # clear out cached jasmine config file
     # it would be nice to automatically flush when the jasmine.yml file changes instead
     # of having this programatic API
