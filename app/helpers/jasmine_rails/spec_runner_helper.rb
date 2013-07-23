@@ -25,7 +25,6 @@ module JasmineRails
         files << 'jasmine-console-reporter.js'
       end
       files << 'jasmine-boot.js'
-      files << 'jasmine-specs.js'
       files
     end
   end

@@ -8,8 +8,8 @@ namespace :spec do
 
   desc "run test with phantomjs"
   task :javascript => :environment do
-    original_debug_setting = Rails.application.config.assets.debug
-    Rails.application.config.assets.debug = false
+    #original_debug_setting = Rails.application.config.assets.debug
+    #Rails.application.config.assets.debug = false
     require 'jasmine_rails/offline_asset_paths'
     if Rails::VERSION::MAJOR >= 4
       Sprockets::Rails::Helper.send :include, JasmineRails::OfflineAssetPaths
@@ -23,13 +23,13 @@ namespace :spec do
     JasmineRails::OfflineAssetPaths.disabled = true
     raise "Jasmine runner at '#{path}' returned a #{app.response.status} error: #{app.response.message}" unless app.response.success?
     html = app.response.body
-    runner_path = Rails.root.join('spec/tmp/runner.html')
+    runner_path = Rails.root.join('tmp/jasmine/runner.html')
     File.open(runner_path, 'w') {|f| f << html.gsub('/assets', './assets')}
 
     config_path = Rails.root.join("spec/javascripts/support/phantom.json")
 
     run_cmd %{phantomjs --config="#{config_path}" "#{File.join(File.dirname(__FILE__), 'runner.js')}" "file://#{runner_path.to_s}?spec=#{spec_filter}"}
-    Rails.application.config.assets.debug = original_debug_setting
+    #Rails.application.config.assets.debug = original_debug_setting
   end
 
   # alias

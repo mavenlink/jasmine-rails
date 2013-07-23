@@ -1,3 +1,5 @@
+# DO NOT USE: Under active development
+
 # jasmine-rails gem
 
 [![Build Status](https://secure.travis-ci.org/searls/jasmine-rails.png)](http://travis-ci.org/searls/jasmine-rails)
