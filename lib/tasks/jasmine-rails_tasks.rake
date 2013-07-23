@@ -16,7 +16,7 @@ namespace :spec do
     else
       ActionView::AssetPaths.send :include, JasmineRails::OfflineAssetPaths
     end
-    spec_filter = ENV['SPEC']
+    spec_filter = ENV['JASMINE_SPEC']
     app = ActionController::Integration::Session.new(Rails.application)
     path = JasmineRails.route_path
     app.get path, :console => 'true', :spec => spec_filter
